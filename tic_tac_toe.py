@@ -13,8 +13,22 @@ def clearBoard():
         board[i] = 0
 
 def drawBoard():
-    for i in range(3):
-        print(f"\n {board[3*i]}  {board[3*i+1]}  {board[3*i+2]} ")
+    print('   |   |')
+    print(' ' + str(board[6]) + ' | ' + str(board[7]) + ' | ' + str(board[8]))
+    print('   |   |')
+    print('-----------')
+    print('   |   |')
+    print(' ' + str(board[3]) + ' | ' + str(board[4]) + ' | ' + str(board[5]))
+    print('   |   |')
+    print('-----------')
+    print('   |   |')
+    print(' ' + str(board[0]) + ' | ' + str(board[1]) + ' | ' + str(board[2]))
+    print('   |   |')
+
+def printWelcome():
+    print("\n************************************")
+    print("****  WELCOME TO TIC TAC TOE!!  ****")
+    print("************************************")
 
 def printTieMsg():
     print("\n************************************")
@@ -75,31 +89,32 @@ def playerMove(n):
 def play():
     while not gameOver:
         playerMove(1)
-        if checkTie() or checkWinner():
+        if checkWinner() or checkTie():
             break;
         playerMove(2)
-        if checkTie() or checkWinner():
+        if checkWinner() or checkTie():
             break;
+
+def replay():
+    answer = input("Do you want to play again? (y/n): ")
+    if answer == "yes" or answer == "y" or answer == "Y" or answer == "Yes" or answer == "YES":
+        global gameOver
+        gameOver = False
+        return True
+    elif answer == "no" or answer == "n" or answer == "N" or answer == "No" or answer == "NO":
+        print("Thanks for playing! Bye!")
+        return False
+    else:
+        print("Unrecognized input. Exiting...Bye!")
+        return False
 
 def playGame():
     while True:
         clearBoard()
-        print("\n************************************")
-        print("****  WELCOME TO TIC TAC TOE!!  ****")
-        print("************************************")
+        printWelcome()
         drawBoard()
         play()
-
-        answer = input("Do you want to play again? (y/n): ")
-        if answer == "yes" or answer == "y" or answer == "Y" or answer == "Yes" or answer == "YES":
-            global gameOver
-            gameOver = False
-            continue
-        elif answer == "no" or answer == "n" or answer == "N" or answer == "No" or answer == "NO":
-            print("Thanks for playing! Bye!")
-            break
-        else:
-            print("Unrecognized input. Exiting...Bye!")
-            break
+        if not replay():
+            break;
 
 playGame()
